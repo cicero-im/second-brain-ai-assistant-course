@@ -3,6 +3,7 @@ from loguru import logger
 
 from second_brain_offline.config import settings
 from second_brain_offline.domain import Document, DocumentMetadata
+from security import safe_requests
 
 
 class NotionDocumentClient:
@@ -74,7 +75,7 @@ class NotionDocumentClient:
             "Notion-Version": "2022-06-28",
         }
         try:
-            blocks_response = requests.get(blocks_url, headers=headers, timeout=10)
+            blocks_response = safe_requests.get(blocks_url, headers=headers, timeout=10)
             blocks_response.raise_for_status()
             blocks_data = blocks_response.json()
             return blocks_data.get("results", [])
