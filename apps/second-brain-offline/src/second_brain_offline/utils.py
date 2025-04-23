@@ -1,7 +1,7 @@
-import random
 import string
 
 import tiktoken
+import secrets
 
 
 def merge_dicts(dict1: dict, dict2: dict) -> dict:
@@ -33,7 +33,7 @@ def generate_random_hex(length: int) -> str:
     """
 
     hex_chars = string.hexdigits.lower()
-    return "".join(random.choice(hex_chars) for _ in range(length))
+    return "".join(secrets.choice(hex_chars) for _ in range(length))
 
 
 def clip_tokens(text: str, max_tokens: int, model_id: str) -> str:

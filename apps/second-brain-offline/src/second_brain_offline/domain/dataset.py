@@ -1,10 +1,10 @@
 import json
-import random
 from pathlib import Path
 
 from datasets import Dataset, DatasetDict
 from loguru import logger
 from pydantic import BaseModel
+import secrets
 
 
 class InstructDatasetSample(BaseModel):
@@ -43,8 +43,8 @@ class InstructDataset(BaseModel):
         shuffled_samples = samples.copy()
 
         if seed is not None:
-            random.seed(seed)
-        random.shuffle(shuffled_samples)
+            secrets.SystemRandom().seed(seed)
+        secrets.SystemRandom().shuffle(shuffled_samples)
 
         train_samples = shuffled_samples[
             : int(len(shuffled_samples) * (1 - val_split_ratio - test_split_ratio))
